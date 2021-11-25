@@ -1,22 +1,27 @@
 {
-  "name": "dm-bot",
-  "version": "1.0.0",
-  "description": "Dungeon Master terminal interface",
-  "main": "index.ts",
-  "scripts": {
-    "dev": "tsc --watch",
-    "lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
-    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.4.1",
-    "typescript": "^4.5.2"
-  }
+	"name": "dm-bot",
+	"version": "1.0.0",
+	"description": "Dungeon Master terminal interface",
+	"main": "index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "tsc --watch",
+		"lint": "eslint --ignore-path .eslintignore --ext .js,.ts .",
+		"format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.4.0",
+		"@typescript-eslint/parser": "^5.4.0",
+		"eslint": "^8.3.0",
+		"eslint-config-prettier": "^8.3.0",
+		"prettier": "^2.4.1",
+		"typescript": "^4.5.2"
+	},
+	"dependencies": {
+		"@discordjs/rest": "^0.1.0-canary.0",
+		"discordx": "^9.0.1"
+	}
 }
