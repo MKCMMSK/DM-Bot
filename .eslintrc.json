@@ -15,8 +15,6 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-		// Indent with 4 spaces
-		"indent": ["error", "tab"],
 		"semi": ["error", "always"]
 	}
 }
