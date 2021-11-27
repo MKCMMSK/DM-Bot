@@ -10,7 +10,8 @@
 		"importHelpers": true,
 		"forceConsistentCasingInFileNames": true,
 		"moduleResolution": "Node",
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"lib": ["esnext", "dom"]
 	},
 	"include": ["src/**/*.ts", "tests/**/*.ts"],
 	"exclude": ["node_modules"]
