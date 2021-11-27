@@ -20,7 +20,7 @@ const client = new Client({
 });
 
 client.on('ready', async () => {
-	await client.clearApplicationCommands('883080647210598410');
+	// await client.clearApplicationCommands('883080647210598410');
 	await client.initApplicationCommands({
 		guild: { log: true },
 		global: { log: true },

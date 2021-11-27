@@ -8,6 +8,6 @@ export class Bot {
 		description: 'This will display all commands and flags.',
 	})
 	help(interaction: CommandInteraction) {
-		interaction.reply('This is help');
+		interaction.reply('This is a helper bot');
 	}
 }

@@ -1,21 +1,19 @@
 import { CommandInteraction } from 'discord.js';
-import {
-	Discord,
-	Guild,
-	Slash,
-	SlashChoice,
-	SlashGroup,
-	SlashOption,
-} from 'discordx';
+import { Discord, Slash, SlashChoice, SlashGroup, SlashOption } from 'discordx';
 
 enum categoryChoices {
-	'Full Stack' = 'fullstack',
-	'Front-End' = 'frontend',
-	'Back-End' = 'backend',
-	'raidName' = 'raidName',
+	'Full Stack' = 'Full Stack',
+	'Front-End' = 'Front-End',
+	'Back-End' = 'Back-End',
 }
+enum statusChoices {
+	'Pending' = 'Pending',
+	'Active' = 'Active',
+	'Forming Raid' = 'Forming Raid',
+}
+
 @Discord()
-@SlashGroup('raid', 'All raid operations are under /raid.')
+@SlashGroup('raid', 'All raid operations are under /raid *command*.')
 export abstract class Raid {
 	raid_name!: string;
 	status!: string;
@@ -35,7 +33,6 @@ export abstract class Raid {
 		escrow_index: number;
 		locker_hash: string;
 	};
-	// @Guild('883080647210598410')
 	@Slash('create', {
 		description: 'Fill out all the neccessary information to form a raid.',
 	})
@@ -45,22 +42,19 @@ export abstract class Raid {
 			required: true,
 		})
 		raidName: string,
+
 		@SlashOption('category', {
 			description: 'Which category does this raid fall into?',
 			required: true,
 		})
-		@SlashChoice('Full Stack', 'Full Stack')
-		@SlashChoice('Front-end', 'Front-end')
-		@SlashChoice('Back-end', 'Back-end')
+		@SlashChoice(categoryChoices)
 		category: string,
 
 		@SlashOption('status', {
 			description: 'Current status of the raid.',
 			required: true,
 		})
-		@SlashChoice('Pending', 'Pending')
-		@SlashChoice('Forming Raid', 'Forming')
-		@SlashChoice('Active', 'Active')
+		@SlashChoice(statusChoices)
 		status: string,
 
 		@SlashOption('invoice-address', {
@@ -68,14 +62,23 @@ export abstract class Raid {
 		})
 		invoiceAddress: string,
 
+		// @SlashOption('roles-required', {
+		// 	description:
+		// 		'Roles that will be required for the raid, no need to enter duplicate roles.',
+		// })
+		// rolesRequired: [string],
+
 		interaction: CommandInteraction
 	) {
 		this.raid_name = raidName;
 		this.cleric = interaction.member.user.toString();
 		this.category = category;
 		this.status = status;
-		this.invoice_address = invoiceAddress;
+		// this.invoice_address = invoiceAddress;
+		// this.roles_required = rolesRequired ?? [];
 		let message = `Cleric: ${this.cleric}\n`;
+
+		console.log(this.invoice_address, ' invoice address');
 
 		if (raidName) {
 			message = `Raid: ${this.raid_name} \n` + message;
