@@ -1,5 +1,6 @@
 import { CommandInteraction } from 'discord.js';
 import { Discord, Slash, SlashChoice, SlashGroup, SlashOption } from 'discordx';
+import { MessageEmbed } from 'discord.js';
 
 enum categoryChoices {
 	'Full Stack' = 'Full Stack',
@@ -15,18 +16,7 @@ enum statusChoices {
 @Discord()
 @SlashGroup('raid', 'All raid operations are under /raid *command*.')
 export abstract class Raid {
-	raid_name!: string;
-	status!: string;
-	category!: string;
 	cleric!: string;
-	roles_required!: [string];
-	raid_party!: string;
-	invoice_address!: string;
-	start_date!: string;
-	end_date!: string;
-	comments!: [string];
-	consultation!: string;
-	related_raids!: [string];
 	portfolio!: string;
 	legacy!: {
 		airtable_id: string;
@@ -34,7 +24,8 @@ export abstract class Raid {
 		locker_hash: string;
 	};
 	@Slash('create', {
-		description: 'Fill out all the neccessary information to form a raid.',
+		description:
+			'Fill out all the neccessary information to form a raid. Cleric is the creator of the raid.',
 	})
 	createRaid(
 		@SlashOption('raidname', {
@@ -57,42 +48,70 @@ export abstract class Raid {
 		@SlashChoice(statusChoices)
 		status: string,
 
+		@SlashOption('roles-required', {
+			description:
+				'Roles required for the raid. No duplicate roles, seperate them with commas. E.g., Warrior, Bard.',
+		})
+		rolesRequired: string,
+
+		@SlashOption('raid-party', {
+			description: 'Add an existing raid party to tackle this raid.',
+		})
+		raid_party: string,
+
 		@SlashOption('invoice-address', {
-			description: 'Invoice address',
+			description: 'Invoice address.',
 		})
 		invoiceAddress: string,
 
-		// @SlashOption('roles-required', {
-		// 	description:
-		// 		'Roles that will be required for the raid, no need to enter duplicate roles.',
-		// })
-		// rolesRequired: [string],
+		@SlashOption('start-date', {
+			description: 'Input start date under this format YYYY-mm-dd.',
+		})
+		start_date: string,
+
+		@SlashOption('end-date', {
+			description: 'Input end date under this format YYYY-mm-dd.',
+		})
+		end_date: string,
+
+		@SlashOption('comment', {
+			description:
+				'Add any comments or additional information the raid needs.',
+		})
+		comments: string,
+
+		@SlashOption('consultation', {
+			description: 'Connect to an existing consultation.',
+		})
+		consultation: string,
+
+		@SlashOption('related-raids', {
+			description:
+				'Connect to related raids. Seperate multiple raids with commas.',
+		})
+		related_raids: string,
 
 		interaction: CommandInteraction
 	) {
-		this.raid_name = raidName;
 		this.cleric = interaction.member.user.toString();
-		this.category = category;
-		this.status = status;
-		// this.invoice_address = invoiceAddress;
-		// this.roles_required = rolesRequired ?? [];
 		let message = `Cleric: ${this.cleric}\n`;
 
-		console.log(this.invoice_address, ' invoice address');
+		console.log(invoiceAddress, ' invoice address');
 
 		if (raidName) {
-			message = `Raid: ${this.raid_name} \n` + message;
+			message = `Raid: ${raidName} \n` + message;
 		}
 		if (category) {
-			message += `Category: ${this.category} \n`;
+			message += `Category: ${category} \n`;
 		}
 		if (status) {
-			message += `Status: ${this.status}\n`;
+			message += `Status: ${status}\n`;
 		}
 		if (invoiceAddress) {
-			message += `Invoice Address: ${this.invoice_address}\n`;
+			message += `Invoice Address: ${invoiceAddress}\n`;
 		}
 		interaction.reply(message);
+		interaction.followUp(message);
 	}
 
 	@Slash('update')
