@@ -1,5 +1,12 @@
 import { CommandInteraction } from 'discord.js';
-import { Discord, Slash, SlashChoice, SlashGroup, SlashOption } from 'discordx';
+import {
+	Client,
+	Discord,
+	Slash,
+	SlashChoice,
+	SlashGroup,
+	SlashOption,
+} from 'discordx';
 import { MessageEmbed } from 'discord.js';
 
 enum categoryChoices {
@@ -94,24 +101,57 @@ export abstract class Raid {
 		interaction: CommandInteraction
 	) {
 		this.cleric = interaction.member.user.toString();
-		let message = `Cleric: ${this.cleric}\n`;
 
-		console.log(invoiceAddress, ' invoice address');
+		const embedMessage = new MessageEmbed()
+			.setColor('#0099ff')
+			.setTitle('Raid Creation')
+			.setURL('https://dev-dungeon-master-v1.vercel.app/')
+			.setAuthor(`DM-Bot`, 'https://i.imgur.com/AfFp7pu.png')
+			.setDescription(
+				'Fill out all the neccessary information to form a raid. Cleric is the creator of the raid.'
+			)
+			.addFields(
+				{ name: `${raidName}`, value: 'Some value here' },
+				{ name: 'Comments:', value: `${comments}` },
+				{ name: '\u200B', value: '\u200B' },
+				{
+					name: 'Cleric:',
+					value: `${this.cleric}`,
+					inline: true,
+				},
+				{
+					name: 'Category:',
+					value: `${category}`,
+					inline: true,
+				},
+				{
+					name: 'Status:',
+					value: `${status}`,
+					inline: true,
+				},
+				{ name: '\u200B', value: '\u200B' }
+			)
+			.addField('Roles required:', `${rolesRequired}`, true)
+			.addField('Raid Party:', `${raid_party}`, true)
+			.addField('Related Raids:', `${related_raids}`, true)
+			.addField('\u200B', '\u200B')
+			.addField('Consultation:', `${consultation}`, true)
+			.addField('Invoice Address:', `${invoiceAddress}`, true)
+			.addField(
+				'Start Date - End date:',
+				`${start_date} - ${end_date}`,
+				true
+			);
 
-		if (raidName) {
-			message = `Raid: ${raidName} \n` + message;
-		}
-		if (category) {
-			message += `Category: ${category} \n`;
-		}
-		if (status) {
-			message += `Status: ${status}\n`;
-		}
-		if (invoiceAddress) {
-			message += `Invoice Address: ${invoiceAddress}\n`;
-		}
-		interaction.reply(message);
-		interaction.followUp(message);
+		embedMessage
+			.setImage('https://i.imgur.com/AfFp7pu.png')
+			.setTimestamp()
+			.setFooter(
+				'Some footer text here',
+				'https://i.imgur.com/AfFp7pu.png'
+			);
+
+		interaction.reply({ ephemeral: true, embeds: [embedMessage] });
 	}
 
 	@Slash('update')
