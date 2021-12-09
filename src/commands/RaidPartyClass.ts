@@ -25,6 +25,7 @@ export class RaidParty {
 
 		interaction: CommandInteraction
 	) {
+
 		interaction.reply('Your party has been been formed, get preparing!');
 	}
 }
