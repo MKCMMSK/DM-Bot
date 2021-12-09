@@ -10,13 +10,11 @@
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 13,
+		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-		// Indent with 4 spaces
-		"indent": ["error", "tab"],
 		"semi": ["error", "always"]
 	}
 }

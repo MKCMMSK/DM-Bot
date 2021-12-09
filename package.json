@@ -22,6 +22,8 @@
 	},
 	"dependencies": {
 		"@discordjs/rest": "^0.1.0-canary.0",
+		"@discordx/importer": "^1.1.2",
+		"axios": "^0.24.0",
 		"discordx": "^9.0.1"
 	}
 }
