@@ -9,7 +9,7 @@ export class RaidParty {
 	@Slash('create', {
 		description: 'This will begin the process of forming a party.',
 	})
-	help(interaction: CommandInteraction) {
+	create(interaction: CommandInteraction) {
 		interaction.reply('Your party has been been formed, get preparing!');
 	}
 }
